@@ -1,5 +1,6 @@
 package wraith.fwaystones.util;
 
+import com.glisco.numismaticoverhaul.ModComponents;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
@@ -32,7 +33,6 @@ import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Random;
 
 public final class Utils {
@@ -233,6 +233,16 @@ public final class Utils {
                         oldInventory.add(new ItemStack(item, amount));
                     }
                     waystoneBE.setInventory(oldInventory);
+                }
+                return true;
+            }
+            case CURRENCY -> {
+                if (ModComponents.CURRENCY.get(player).getValue() < amount) {
+                    player.sendMessage(Text.translatable("fwaystones.no_teleport.currency"), true);
+                    return false;
+                }
+                if (takeCost) {
+                    ModComponents.CURRENCY.get(player).modify(-amount);
                 }
                 return true;
             }

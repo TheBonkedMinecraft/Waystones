@@ -59,6 +59,7 @@ public final class FWConfigModel {
         LEVEL,
         EXPERIENCE,
         ITEM,
+        CURRENCY,
         NONE
     }
 
